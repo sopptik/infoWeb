@@ -2,37 +2,41 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Slim 3</title>
+        <title>Backup server overview</title>
         <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-        <style>
-            body {
-                margin: 50px 0 0 0;
-                padding: 0;
-                width: 100%;
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                text-align: center;
-                color: #aaa;
-                font-size: 18px;
-            }
-
-            h1 {
-                color: #719e40;
-                letter-spacing: -3px;
-                font-family: 'Lato', sans-serif;
-                font-size: 100px;
-                font-weight: 200;
-                margin-bottom: 0;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/index.css">
     </head>
     <body>
-        <h1>Slim</h1>
-        <div>a microframework for PHP</div>
+        <h1>Backup server overview</h1>
+        <div class="information" >
+        <br/>
+			<?php
+    			$bytes = disk_free_space(".");
+    			$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
+    			$base = 1024;
+    			$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
+    			echo 'Disk free space: '.sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
+    			
+    			$backupFolder  = '/mnt/BACKUP/VPS/rdiff-backup-data/';
+    			$folderContent = scandir($backupFolder);
+    			$oldTime       = 0;
+    			foreach ($folderContent as $file) {
+    			    if (is_file($file) && !is_dir($file)) {
+    			        echo $file."\n<br/>";
+    			        $file        = 'session_statistics.2018-04-07T00:00:05Z.data';
+    			        $returnValue = preg_replace("/(\w+)\.(.*)\.(\w+)/", "$2", $file);
+    			        $time        = strtotime($returnValue);
 
-        <?php if (isset($name)) : ?>
-            <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
-        <?php endif; ?>
+    			        if ($oldTime < $time) {
+    			            $oldTime = $time;
+    			            $aktFile = $file;
+    			        }
+    			    }
+    			}
+    			echo 'Latest backup from: '.date("j. n. Y H:i:s", $oldTime);
+    			$statistic = file_get_contents($backupFolder.$aktFile);
+    			echo '<pre>'.$statistic.'</pre>';
+            ?>
+    	</div>
     </body>
 </html>

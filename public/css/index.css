@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+* {
+  /* So 100% means 100% */
+  box-sizing: border-box;
+}
+
+html, body {
+  /* Make the body to be as tall as browser window */
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+	margin: 0 0 0 0;
+	padding: 0;
+	width: 100%;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #aaa;
+	background-color: #333333;
+	height:100%;
+}
+
+h1 {
+	color: #719e40;
+	width: 90%;
+	height:50px;
+	letter-spacing: 2px;
+	font-size: 40px;
+	font-weight: 200;
+	margin-bottom: 0;
+	margin-top: 20px;
+	margin-left: 5%;
+	text-align: left;
+	border-bottom: 1px solid #aaa;
+}
+
+.information {
+	margin-left: 5%;
+	text-align: left;
+	word-wrap: break-word;
+	word-break: break-all;
+    text-align: justify;
+    text-justify: inter-word;
+	width: 90%;
+	height:calc(95% - 40px);
+	overflow-x: hidden;
+	overflow-y: calc(); 
+}

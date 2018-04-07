@@ -1,18 +1,27 @@
-version: '2'
-
-volumes:
-    logs:
-        driver: local
+version: '2.0'
 
 services:
-    slim:
-        image: php:7-alpine
-        working_dir: /var/www
-        command: php -S 0.0.0.0:8080 -t public index.php
-        environment:
-            docker: "true"
-        ports:
-            - 8080:8080
-        volumes:
-            - .:/var/www
-            - logs:/var/www/logs
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+     - 8080:8080
+    depends_on:
+    - mysql
+
+  mysql:
+    image: mysql:5.6
+    container_name: my_mysql
+    ports:
+    - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  php:
+    image: php:7.0-apache
+    ports:
+    - '80:80'
+    volumes:
+    - ./public:/var/www/html/
+    - .:/var/www/
+    
