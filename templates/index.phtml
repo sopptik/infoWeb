@@ -21,8 +21,7 @@
     			$folderContent = scandir($backupFolder);
     			$oldTime       = 0;
     			foreach ($folderContent as $file) {
-    			    if (is_file($file) && !is_dir($file) && str_pos($file, 'session_statistics') !== false) {
-    			        echo $file."\n<br/>";
+    			    if (strpos($file, 'session_statistics') !== false) {
     			        $returnValue = preg_replace("/(\w+)\.(.*)\.(\w+)/", "$2", $file);
     			        $time        = strtotime($returnValue);
 
