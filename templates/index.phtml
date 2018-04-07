@@ -11,19 +11,18 @@
         <div class="information" >
         <br/>
 			<?php
-    			$bytes = disk_free_space(".");
+    			$backupFolder  = '/mnt/BACKUP/VPS/rdiff-backup-data/';
+    			$bytes = disk_free_space($backupFolder);
     			$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
     			$base = 1024;
     			$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
     			echo 'Disk free space: '.sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
     			
-    			$backupFolder  = '/mnt/BACKUP/VPS/rdiff-backup-data/';
     			$folderContent = scandir($backupFolder);
     			$oldTime       = 0;
     			foreach ($folderContent as $file) {
-    			    if (is_file($file) && !is_dir($file)) {
+    			    if (is_file($file) && !is_dir($file) && str_pos($file, 'session_statistics') !== false) {
     			        echo $file."\n<br/>";
-    			        $file        = 'session_statistics.2018-04-07T00:00:05Z.data';
     			        $returnValue = preg_replace("/(\w+)\.(.*)\.(\w+)/", "$2", $file);
     			        $time        = strtotime($returnValue);
 
