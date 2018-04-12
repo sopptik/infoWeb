@@ -8,33 +8,35 @@
     </head>
     <body>
         <h1>Backup server overview</h1>
-        <div class="information" >
-        <br/>
-			<?php
-    			$backupFolder  = '/mnt/BACKUP/VPS/rdiff-backup-data/';
-    			$bytes = disk_free_space($backupFolder);
-    			$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
-    			$base = 1024;
-    			$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
-    			echo 'Disk free space: '.sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
-    			
-    			$folderContent = scandir($backupFolder);
-    			$oldTime       = 0;
-    			foreach ($folderContent as $file) {
-    			    if (strpos($file, 'session_statistics') !== false) {
-    			        $returnValue = preg_replace("/(\w+)\.(.*)\.(\w+)/", "$2", $file);
-    			        $time        = strtotime($returnValue);
+        <div class="container">
+            <div class="information" >
+            <br/>
+    			<?php
+        			$backupFolder  = '/mnt/BACKUP/VPS/rdiff-backup-data/';
+        			$bytes = disk_free_space($backupFolder);
+        			$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
+        			$base = 1024;
+        			$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
+        			echo 'Disk free space: '.sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
 
-    			        if ($oldTime < $time) {
-    			            $oldTime = $time;
-    			            $aktFile = $file;
-    			        }
-    			    }
-    			}
-    			echo 'Latest backup from: '.date("j. n. Y H:i:s", $oldTime);
-    			$statistic = file_get_contents($backupFolder.$aktFile);
-    			echo '<pre>'.$statistic.'</pre>';
-            ?>
-    	</div>
+        			$folderContent = scandir($backupFolder);
+        			$oldTime       = 0;
+        			foreach ($folderContent as $file) {
+        			    if (strpos($file, 'session_statistics') !== false) {
+        			        $returnValue = preg_replace("/(\w+)\.(.*)\.(\w+)/", "$2", $file);
+        			        $time        = strtotime($returnValue);
+
+        			        if ($oldTime < $time) {
+        			            $oldTime = $time;
+        			            $aktFile = $file;
+        			        }
+        			    }
+        			}
+        			echo 'Latest backup from: '.date("j. n. Y H:i:s", $oldTime);
+        			$statistic = file_get_contents($backupFolder.$aktFile);
+        			echo '<pre>'.$statistic.'</pre>';
+                ?>
+        	</div>
+        </div>
     </body>
 </html>

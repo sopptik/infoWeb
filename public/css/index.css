@@ -24,26 +24,25 @@ body {
 h1 {
 	color: #719e40;
 	width: 90%;
-	height:50px;
 	letter-spacing: 2px;
-	font-size: 40px;
+	font-size: 5vw;
 	font-weight: 200;
 	margin-bottom: 0;
 	margin-top: 20px;
-	margin-left: 5%;
+	margin-left: 3vw;
 	text-align: left;
 	border-bottom: 1px solid #aaa;
 }
 
-.information {
-	margin-left: 5%;
-	text-align: left;
-	word-wrap: break-word;
-	word-break: break-all;
-    text-align: justify;
-    text-justify: inter-word;
-	width: 90%;
-	height:calc(95% - 40px);
-	overflow-x: hidden;
-	overflow-y: calc(); 
+.container {
+	display: flex;
+	justify-content: space-around;
+	margin: 3vw;
+}
+
+.container > div {
+	font-size: 2vw;
+}
+
+.information { 
 }
