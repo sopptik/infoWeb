@@ -25,6 +25,7 @@ h1 {
 	color: #719e40;
 	letter-spacing: 2px;
 	font-size: 5vw;
+	height:5.2vw;
 	font-weight: 200;
 	margin-bottom: 0;
 	margin-top: 20px;
@@ -36,7 +37,8 @@ h1 {
 
 .container {
 	display: flex;
-	justify-content: space-around;
+	overflow:auto;
+	height:calc(100% - 8.2vw);
 	margin: 3vw;
 }
 
