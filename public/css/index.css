@@ -23,13 +23,13 @@ body {
 
 h1 {
 	color: #719e40;
-	width: 90%;
 	letter-spacing: 2px;
 	font-size: 5vw;
 	font-weight: 200;
 	margin-bottom: 0;
 	margin-top: 20px;
 	margin-left: 3vw;
+	margin-right: 3vw;
 	text-align: left;
 	border-bottom: 1px solid #aaa;
 }
@@ -42,6 +42,7 @@ h1 {
 
 .container > div {
 	font-size: 2vw;
+	overflow: auto;
 }
 
 .information { 
