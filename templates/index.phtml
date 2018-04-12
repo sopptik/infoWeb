@@ -21,21 +21,31 @@
 
         			$folderContent = scandir($backupFolder);
         			$oldTime       = 0;
+        			$newTime       = 0;
         			foreach ($folderContent as $file) {
         			    if (strpos($file, 'session_statistics') !== false) {
         			        $returnValue = preg_replace("/(\w+)\.(.*)\.(\w+)/", "$2", $file);
         			        $time        = strtotime($returnValue);
 
-        			        if ($oldTime < $time) {
+        			        if ($newTime < $time) {
+        			            $newTime = $time;
+        			            $newFile = $file;
+        			        }
+        			        if ($oldTime > $time) {
         			            $oldTime = $time;
-        			            $aktFile = $file;
+        			            $oldFile = $file;
+        			        } elseif ($oldTime === 0) {
+        			            $oldTime = $time;
         			        }
         			    }
         			}
-        			echo 'Latest backup from: '.date("j. n. Y H:i:s", $oldTime);
-        			$statistic = file_get_contents($backupFolder.$aktFile);
+        			echo 'Latest backup from: '.date("j. n. Y H:i:s", $newTime);
+        			$statistic = file_get_contents($backupFolder.$newFile);
         			echo '<pre>'.$statistic.'</pre>';
-                ?>
+        			echo 'Oldest backup from: '.date("j. n. Y H:i:s", $oldTime);
+        			$statistic = file_get_contents($backupFolder.$oldFile);
+        			echo '<pre>'.$statistic.'</pre>';
+        			?>
         	</div>
         </div>
     </body>

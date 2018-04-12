@@ -44,7 +44,7 @@ h1 {
 
 .container > div {
 	font-size: 2vw;
-	overflow: auto;
+	width: 100%;
 }
 
 .information { 
