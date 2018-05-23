@@ -13,10 +13,10 @@
             <br/>
     			<?php
         			$backupFolder  = '/mnt/BACKUP/VPS/rdiff-backup-data/';
-        			$bytes = disk_free_space($backupFolder);
-        			$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
-        			$base = 1024;
-        			$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
+        			$bytes         = disk_free_space($backupFolder);
+        			$si_prefix     = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
+        			$base          = 1024;
+        			$class         = min((int)log($bytes , $base) , count($si_prefix) - 1);
         			echo 'Disk free space: '.sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
 
         			$folderContent = scandir($backupFolder);

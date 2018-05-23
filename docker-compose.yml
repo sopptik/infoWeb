@@ -18,10 +18,12 @@ services:
       MYSQL_ROOT_PASSWORD: root
 
   php:
-    image: php:7.0-apache
+    image: php:7.1-apache
     ports:
     - '80:80'
     volumes:
     - ./public:/var/www/html/
     - .:/var/www/
-    
+    - ./php:/usr/local/etc/php/custom.d
+    environment:
+      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"

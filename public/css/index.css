@@ -38,7 +38,7 @@ h1 {
 .container {
 	display: flex;
 	overflow:auto;
-	height:calc(100% - 8.2vw);
+	height:calc(100% - 8.5vw);
 	margin: 3vw;
 }
 
